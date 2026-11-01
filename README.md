@@ -1,48 +1,50 @@
 # Smart Extension Board | NodeMCU ESP8266 + Blynk 2.0
 
-An IoT-enabled smart extension board that combines **manual switching** with **remote control through Blynk 2.0**.
+An IoT-enabled smart extension board combining **physical switching** with **remote smartphone control** through Blynk 2.0.
 
-The system uses a **NodeMCU ESP8266**, a 4-channel relay module, physical 2-way switches, and AC outputs to control lights and electrical sockets from either the hardware switches or a smartphone.
+The system uses a **NodeMCU ESP8266**, four relay channels, physical switches and AC outputs to control connected loads through Wi-Fi while retaining local manual control.
 
-> **Safety note:** This project interfaces with AC mains voltage. Replication should only be attempted by people who understand electrical safety and safe isolation practices.
+> **Safety note:** This project interfaces with AC mains voltage. Replication should only be attempted by people who understand electrical safety, isolation and safe wiring practices.
 
-## Features
+## Project Demo
 
-- Remote appliance control through **Blynk 2.0**
-- Manual control using physical switches
-- Four relay-controlled outputs
-- Wi-Fi connectivity through NodeMCU ESP8266
-- Hardware + software integration in one practical IoT system
-- Manual override when remote control is not available
+[▶ **Watch the working Smart Extension Board demonstration**](media/smart_extension_board_demo.mp4)
+
+The demonstration shows the completed hardware operating as an integrated IoT control system.
+
+## Circuit Diagram
+
+![Smart Extension Board Circuit Diagram](media/circuit_diagram.jpeg)
+
+The circuit diagram is included from the original project documentation as a reference for the hardware arrangement. See the [attribution notes](docs/ATTRIBUTION.md) for source details.
+
+## What the System Does
+
+- Controls multiple electrical loads through **Blynk 2.0**
+- Provides local control through physical switches
+- Uses four relay outputs driven by the NodeMCU ESP8266
+- Connects to the Blynk cloud over Wi-Fi
+- Keeps each output independently controllable
+- Demonstrates practical integration of embedded software, electronics and a user-facing IoT interface
 
 ## System Architecture
 
 ```mermaid
 flowchart LR
     A[Smartphone / Blynk 2.0] -->|Wi-Fi| B[NodeMCU ESP8266]
-    C[Physical Switches] --> B
-    B --> D[4-Channel Relay Module]
+    C[Physical Switches] --> D[Relay / Load Circuit]
+    B --> D[4-Channel Relay Control]
     D --> E[Lights / AC Sockets]
 ```
-
-## Circuit Diagram
-
-The circuit diagram used in the project documentation will be stored in:
-
-`media/circuit_diagram.jpeg`
-
-Once uploaded, it will appear here:
-
-![Smart Extension Board Circuit Diagram](media/circuit_diagram.jpeg)
 
 ## Hardware
 
 - NodeMCU ESP8266
 - 4-channel relay module
 - Physical 2-way switches
-- Light / AC socket outputs
-- Jumper wires
-- Power supply
+- Lighting / AC socket outputs
+- Jumper wires and wiring
+- NodeMCU power supply
 - Wi-Fi network
 
 ## Software
@@ -54,27 +56,21 @@ Once uploaded, it will appear here:
 
 ## Control Logic
 
-Blynk virtual pins are used to send commands from the mobile application to the NodeMCU. The microcontroller then changes the output state of the corresponding relay.
+Blynk virtual pins **V0-V3** are mapped to four relay channels. Commands sent from the mobile application are received by the ESP8266, which changes the state of the corresponding active-low relay output.
 
-The relay outputs are configured so that each channel can control a connected load independently.
+The public portfolio version of the code keeps the control logic easy to inspect while removing all private credentials.
 
 ## Source Code
 
-The public example in `src/smart_extension_board.ino` intentionally uses placeholders for:
+See [`src/smart_extension_board.ino`](src/smart_extension_board.ino).
+
+The repository intentionally uses placeholders for:
 
 - Blynk authentication token
 - Wi-Fi SSID
 - Wi-Fi password
 
-Real credentials are **not stored in this repository**.
-
-## Demo
-
-A demonstration video can be added to:
-
-`media/smart_extension_board_demo.mp4`
-
-If the video is too large for GitHub, the repository can instead link to a YouTube, Google Drive, or other public demo URL.
+No private credentials are stored in the public repository.
 
 ## Repository Structure
 
@@ -90,22 +86,27 @@ smart-extension-board-iot/
     └── smart_extension_board_demo.mp4
 ```
 
-## What This Project Demonstrates
+## Engineering Takeaways
 
-- Embedded programming
-- IoT communication
-- Relay-based load control
-- Hardware/software integration
-- Remote device control
-- Practical troubleshooting and wiring
-- Building a simple user-facing automation system
+This project gave me practical experience with:
+
+- embedded C/C++ programming
+- Wi-Fi connected devices
+- relay-based load control
+- hardware/software integration
+- IoT application interfaces
+- debugging wiring and control behaviour
+- turning a prototype into a working user-facing automation device
 
 ## Attribution
 
-The original project documentation references external tutorials for parts of the circuit/code approach. Those sources are acknowledged in [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md).
+The original project documentation references external tutorials for parts of the circuit and code approach. I have kept those sources explicit rather than presenting third-party material as original work.
+
+See [`docs/ATTRIBUTION.md`](docs/ATTRIBUTION.md).
 
 ## Author
 
 **Karan Chauhan**  
 Robotics & Automation Engineer  
-GitHub: [@karan-automation](https://github.com/karan-automation)
+GitHub: [@karan-automation](https://github.com/karan-automation)  
+LinkedIn: [Karan Chauhan](https://www.linkedin.com/in/karan-chauhan-425007212)
